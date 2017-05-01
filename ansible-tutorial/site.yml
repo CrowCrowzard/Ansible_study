@@ -1,0 +1,9 @@
+---
+- name: Playbookチュートリアル
+  hosts: all
+  become: true
+  tasks:
+    - name: libselinux-pythonをインストール
+      yum:
+        name: libselinux-python
+        state: present
