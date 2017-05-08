@@ -1,0 +1,33 @@
+---
+- name: Proxmox VM 状態変更
+  hosts: localhost
+  become: true
+  gather_facts: false
+  vars_prompt:
+    - name: "api_user" 
+      prompt: "PVE API user?"
+      default: "root@pam"
+      private: no
+
+    - name: "api_password"
+      prompt: "PVE API password?"
+      private: yes
+
+    - name: "vm_id"
+      prompt: "PVE API vm_id?"
+      private: no
+
+    - name: "api_host"
+      prompt: "PVE API host?"
+      default: "proxmox"
+      private: no
+
+  tasks:
+    - name: start VM
+      proxmox_kvm:
+        vmid: "{{ vm_id }}"
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        api_host: "{{ api_host }}"
+        state: started
+        
