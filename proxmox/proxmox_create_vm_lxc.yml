@@ -1,0 +1,74 @@
+---
+- name: Proxmox create VM
+  hosts: localhost
+  become: true
+  gather_facts: false
+  vars_prompt:
+    - name: "api_user" 
+      prompt: "PVE API user?"
+      default: "root@pam"
+      private: no
+
+    - name: "api_password"
+      prompt: "PVE API password?"
+      private: yes
+
+    - name: "api_host"
+      prompt: "PVE API host?"
+      default: "proxmox"
+      private: no
+    
+    - name: "vm_cpus"
+      prompt: "Config vm_cpus?"
+      default: "1"
+      private: no
+
+    - name: "vm_memory"
+      prompt: "Config vm_memory?(MB)"
+      default: "1024"
+      private: no
+
+    - name: "vm_disk"
+      prompt: "Config vm_disk?(GB)"
+      default: "64"
+      private: no
+
+    - name: "vm_id"
+      prompt: "Config vm_id?"
+      private: no
+
+    - name: "vm_node"
+      prompt: "Config vm_node?"
+      default: "proxmox"
+      private: no
+
+    - name: "vm_password"
+      prompt: "Config vm_password?"
+      private: yes
+
+    - name: "vm_hostname"
+      prompt: "Config vm_hostname?"
+      private: no
+
+    - name: "os_template" 
+      prompt: "choise os_template?"
+      default: "local:vztmpl/centos-6-default_20161207_amd64.tar.xz"
+      private: no
+
+  tasks:
+    - name: start VM
+      proxmox:
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        api_host: "{{ api_host }}"
+        cpus: "{{ vm_cpus }}"
+        memory: "{{ vm_memory }}"
+        disk: "{{ vm_disk }}"
+        vmid: "{{ vm_id }}"
+        node: "{{ vm_node }}"
+        password: "{{ vm_password }}"
+        hostname: "{{ vm_hostname }}"
+        ostemplate: "{{ os_template }}"
+        onboot: "yes"
+        netif: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0"}'
+
