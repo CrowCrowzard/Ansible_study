@@ -1,0 +1,64 @@
+---
+- name: Proxmox cone VM
+  hosts: localhost
+  become: true
+  gather_facts: false
+  vars_prompt:
+    - name: "api_user" 
+      prompt: "PVE API user?"
+      default: "root@pam"
+      private: no
+
+    - name: "api_password"
+      prompt: "PVE API password?"
+      private: yes
+
+    - name: "api_host"
+      prompt: "PVE API host?"
+      default: "proxmox"
+      private: no
+    
+    - name: "clone"
+      prompt: "clone?"
+      private: no
+    
+    - name: "vm_id"
+      prompt: "cloned vm_id?"
+      private: no
+
+    - name: "new_vm_id"
+      prompt: "new_vm_id?"
+      private: no
+
+    - name: "name"
+      prompt: "The target VM name?"
+      private: no
+
+    - name: "vm_node"
+      prompt: "Config vm_node?"
+      default: "proxmox"
+      private: no
+
+    - name: "storage"
+      prompt: "storage?(GB)"
+      default: "32"
+
+    - name: "format"
+      promt: "format?(cloop|cow|qcow|qcow2|qed|raw|vmdk)"
+      default: "qcow2"
+
+  tasks:
+    - name: start VM
+      proxmox:
+        api_user    : "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        api_host    : "{{ api_host }}"
+        clone       : "{{ aaa }}"
+        vmid        : "{{ vm_id }}"
+        newid       : "{{ new_vm_id }}"
+        name        : "{{ name }}" # The target VM name
+        node        : "{{ vm_node }}"
+        storage     : "{{ storage }}"
+        format      : "{{ format }}"
+        timeout     : 300
+
