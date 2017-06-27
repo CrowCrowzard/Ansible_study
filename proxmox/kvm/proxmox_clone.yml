@@ -19,7 +19,7 @@
       private: no
     
     - name: "clone"
-      prompt: "clone name?"
+      prompt: "cloned name?"
       private: no
     
     - name: "vm_id"
