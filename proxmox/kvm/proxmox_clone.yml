@@ -40,8 +40,8 @@
       private: no
 
     - name: "storage"
-      prompt: "storage?(GB)"
-      default: "32"
+      prompt: "storage?"
+      default: "local"
       private: no
 
     - name: "format"
