@@ -1,5 +1,5 @@
 ---
-- name: Proxmox VM 状態変更
+- name: Proxmox VM state change
   hosts: localhost
   become: true
   gather_facts: false
