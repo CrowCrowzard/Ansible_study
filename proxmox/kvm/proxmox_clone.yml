@@ -19,7 +19,7 @@
       private: no
     
     - name: "clone"
-      prompt: "clone?"
+      prompt: "clone name?"
       private: no
     
     - name: "vm_id"
@@ -42,18 +42,20 @@
     - name: "storage"
       prompt: "storage?(GB)"
       default: "32"
+      private: no
 
     - name: "format"
       promt: "format?(cloop|cow|qcow|qcow2|qed|raw|vmdk)"
       default: "qcow2"
+      private: no
 
   tasks:
     - name: start VM
-      proxmox:
+      proxmox_kvm:
         api_user    : "{{ api_user }}"
         api_password: "{{ api_password }}"
         api_host    : "{{ api_host }}"
-        clone       : "{{ aaa }}"
+        clone       : "{{ clone }}"
         vmid        : "{{ vm_id }}"
         newid       : "{{ new_vm_id }}"
         name        : "{{ name }}" # The target VM name
