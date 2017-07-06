@@ -1,4 +1,5 @@
 *.vagrant
+<<<<<<< HEAD
 .python-version
 *.retry
 *.DS_Store
